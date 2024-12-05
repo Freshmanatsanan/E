@@ -1,0 +1,26 @@
+<h2>ค้นหารายวิชาเพื่อลบ</h2>
+
+<form method="GET" action="{% url 'C' %}">
+    <label for="course_id">ค้นหาจากรหัสวิชา</label>
+    <input type="text" name="course_id" id="course_id">
+    <button type="submit">ค้นหา</button>
+</form>
+
+{% if courses %}
+    <table>
+        {% for course in courses %}
+        <tr>
+            <td>{{course.course_id}}</td>
+            <td>{{course.course_name}}</td>
+            <td>
+                <form method="post" action="{% url 'E' course.course_id %}">
+                    {% csrf_token %}
+                    <button type="submit">ลบ</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>ไม่พบข้อมูล</p>
+{% endif %}
